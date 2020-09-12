@@ -1,2 +1,3 @@
 module scrooge {
+	exports scrooge;
 }
