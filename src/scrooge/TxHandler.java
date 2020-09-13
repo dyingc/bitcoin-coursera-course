@@ -9,6 +9,7 @@ public class TxHandler {
      */
     public TxHandler(UTXOPool utxoPool) {
         // IMPLEMENT THIS
+    	// TODO
     }
 
     /**
@@ -22,7 +23,7 @@ public class TxHandler {
      */
     public boolean isValidTx(Transaction tx) {
         // IMPLEMENT THIS
-    	
+    	// TODO
     	return false;
     }
 
@@ -33,7 +34,7 @@ public class TxHandler {
      */
     public Transaction[] handleTxs(Transaction[] possibleTxs) {
         // IMPLEMENT THIS
-    	
+    	// TODO
     	return null;
     }
 

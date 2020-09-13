@@ -9,7 +9,7 @@ public class UTXOPool {
     /**
      * The current collection of UTXOs, with each one mapped to its corresponding transaction output
      */
-    private HashMap<UTXO, Transaction.Output> H;
+    private HashMap<UTXO, Transaction.Output> H; // Transaction.Output包含：给谁（PublicKey）；给多少
 
     /** Creates a new empty UTXOPool */
     public UTXOPool() {
@@ -17,6 +17,10 @@ public class UTXOPool {
     }
 
     /** Creates a new UTXOPool that is a copy of {@code uPool} */
+    /**
+     * 最后练习里面要求的Defensive copy
+     * @param uPool
+     */
     public UTXOPool(UTXOPool uPool) {
         H = new HashMap<UTXO, Transaction.Output>(uPool.H);
     }

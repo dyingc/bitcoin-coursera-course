@@ -25,6 +25,9 @@ public class Transaction {
             outputIndex = index;
         }
 
+        /** the signature it contains must be a valid signature 
+         * over the current transaction with the public key in 
+         * the spent output. **/
         public void addSignature(byte[] sig) {
             if (sig == null)
                 signature = null;
@@ -35,9 +38,9 @@ public class Transaction {
 
     public class Output {
         /** value in bitcoins of the output */
-        public double value;
+        public double value; // 给多少
         /** the address or public key of the recipient */
-        public PublicKey address;
+        public PublicKey address; // 给谁
 
         public Output(double v, PublicKey addr) {
             value = v;
@@ -126,30 +129,30 @@ public class Transaction {
     public byte[] getRawTx() {
         ArrayList<Byte> rawTx = new ArrayList<Byte>();
         for (Input in : inputs) {
-            byte[] prevTxHash = in.prevTxHash;
+            byte[] prevTxHash = in.prevTxHash; // 指向Input的prevTxHash
             ByteBuffer b = ByteBuffer.allocate(Integer.SIZE / 8);
             b.putInt(in.outputIndex);
-            byte[] outputIndex = b.array();
-            byte[] signature = in.signature;
+            byte[] outputIndex = b.array(); // 把outputIndex从整形int转成字节数组
+            byte[] signature = in.signature; // Input里面的signature本来就是字节数组
             if (prevTxHash != null)
                 for (int i = 0; i < prevTxHash.length; i++)
-                    rawTx.add(prevTxHash[i]);
+                    rawTx.add(prevTxHash[i]); //prevTxHash本身是字节数组，把它的这些字节依次加入
             for (int i = 0; i < outputIndex.length; i++)
-                rawTx.add(outputIndex[i]);
+                rawTx.add(outputIndex[i]); //把outputIndex的字节依次加入
             if (signature != null)
                 for (int i = 0; i < signature.length; i++)
-                    rawTx.add(signature[i]);
+                    rawTx.add(signature[i]); //依次加入signature的字节
         }
         for (Output op : outputs) {
             ByteBuffer b = ByteBuffer.allocate(Double.SIZE / 8);
-            b.putDouble(op.value);
+            b.putDouble(op.value); // Output中的value（转给对方多少个币）本身是double型的
             byte[] value = b.array();
-            byte[] addressBytes = op.address.getEncoded();
+            byte[] addressBytes = op.address.getEncoded(); // 将output address转换成字节数组
             for (int i = 0; i < value.length; i++) {
-                rawTx.add(value[i]);
+                rawTx.add(value[i]); // 将output value的double型数据所对应的字节依次写入
             }
             for (int i = 0; i < addressBytes.length; i++) {
-                rawTx.add(addressBytes[i]);
+                rawTx.add(addressBytes[i]); // 依次写入output address的字节
             }
 
         }

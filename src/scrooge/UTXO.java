@@ -2,13 +2,14 @@ package scrooge;
 
 import java.util.Arrays;
 
+/** A UTXO represents an UNSPENT transaction output. **/
 public class UTXO implements Comparable<UTXO> {
 
     /** Hash of the transaction from which this UTXO originates */
-    private byte[] txHash;
+    private byte[] txHash; // 该UTXO的源起TX（该UTXO是从哪个TX的output来的）
 
     /** Index of the corresponding output in said transaction */
-    private int index;
+    private int index; // 在该UTXO的源起TX中，是第几个output
 
     /**
      * Creates a new UTXO corresponding to the output with index <index> in the transaction whose
